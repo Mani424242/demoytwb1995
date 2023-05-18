@@ -9,22 +9,17 @@ Triggers:
 
 # Required - Define action configurations.
 Actions:
-  GitHubActions_1a:
-    Identifier: aws/github-actions-runner@v1.0.0
-    Inputs:
-      Sources:
-        - WorkflowSource
+  DeployAWSCloudFormationstack_22:
+    Identifier: aws/cfn-deploy@v1.0.4
     Configuration:
-      Steps:
-        - name: Enter dir and deploy
-          uses: serverless/github-action@v3.2
-          with:
-            args: -c "cd ./ && serverless deploy"
-            entrypoint: /bin/sh
-    Compute:
-      Type: EC2
+      template: Testserv
+      region: us-east-1
+      name: test
     Environment:
       Connections:
         - Role: AWSRoleForCodeCatalystSupport
           Name: "314208970587"
       Name: dev
+    Inputs:
+      Sources:
+        - WorkflowSource
