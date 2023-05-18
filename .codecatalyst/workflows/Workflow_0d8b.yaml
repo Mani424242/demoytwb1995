@@ -25,6 +25,6 @@ Actions:
       Type: EC2
     Environment:
       Connections:
-        - Role: CodeCatalystWorkflowDevelopmentRole-PIDDigital
+        - Role: AWSRoleForCodeCatalystSupport
           Name: "314208970587"
       Name: dev
