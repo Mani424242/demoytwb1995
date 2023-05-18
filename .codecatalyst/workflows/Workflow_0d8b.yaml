@@ -9,17 +9,27 @@ Triggers:
 
 # Required - Define action configurations.
 Actions:
-  DeployAWSCloudFormationstack_22:
-    Identifier: aws/cfn-deploy@v1.0.4
+  Test_c5:
+    Identifier: aws/managed-test@v1.0.0
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Outputs:
+      AutoDiscoverReports:
+        Enabled: true
+        ReportNamePrefix: rpt
     Configuration:
-      template: Testserv
-      region: us-east-1
-      name: test
+      Steps:
+        - Run: run-tests -h
+        - Run: echo "Hello, World!"
+        - Run: echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" >> report.xml
+        - Run: echo "<testsuite tests=\"1\" name=\"TestAgentJunit\" >" >> report.xml
+        - Run: echo "<testcase classname=\"TestAgentJunit\" name=\"Dummy
+            Test\"/></testsuite>" >> report.xml
+    Compute:
+      Type: EC2
     Environment:
       Connections:
         - Role: AWSRoleForCodeCatalystSupport
           Name: "314208970587"
       Name: dev
-    Inputs:
-      Sources:
-        - WorkflowSource
