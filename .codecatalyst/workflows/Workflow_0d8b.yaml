@@ -1,0 +1,28 @@
+Name: Workflow_0d8b
+SchemaVersion: "1.0"
+
+# Optional - Set automatic triggers.
+Triggers:
+  - Type: Push
+    Branches:
+      - main
+
+# Required - Define action configurations.
+Actions:
+  AWSLambdainvoke_f5:
+    Identifier: aws/lambda-invoke@v1.0.8
+    Environment:
+      Connections:
+        - Role: CodeCatalystWorkflowDevelopmentRole-PIDDigital
+          Name: "314208970587"
+      Name: dev
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Compute:
+      Type: Lambda
+    Configuration:
+      ContinueOnError: false
+      AWSRegion: us-east-1
+      LogType: Tail
+      Function: serverlessframework
