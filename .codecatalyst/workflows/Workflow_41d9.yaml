@@ -1,0 +1,28 @@
+Name: Workflow_41d9
+SchemaVersion: "1.0"
+
+# Optional - Set automatic triggers.
+Triggers:
+  - Type: Push
+    Branches:
+      - main
+
+# Required - Define action configurations.
+Actions:
+  AWSLambdainvoke_70:
+    Identifier: aws/lambda-invoke@v1.0.8
+    Environment:
+      Connections:
+        - Role: AWSRoleForCodeCatalystSupport
+          Name: "314208970587"
+      Name: dev
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Compute:
+      Type: EC2
+    Configuration:
+      ContinueOnError: false
+      AWSRegion: us-west-2
+      LogType: Tail
+      Function: simplefunction
