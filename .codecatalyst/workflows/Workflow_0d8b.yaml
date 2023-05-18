@@ -9,20 +9,22 @@ Triggers:
 
 # Required - Define action configurations.
 Actions:
-  AWSLambdainvoke_f5:
-    Identifier: aws/lambda-invoke@v1.0.8
+  GitHubActions_1a:
+    Identifier: aws/github-actions-runner@v1.0.0
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Configuration:
+      Steps:
+        - name: Enter dir and deploy
+          uses: serverless/github-action@v3.2
+          with:
+            args: -c "cd ./ && serverless deploy"
+            entrypoint: /bin/sh
+    Compute:
+      Type: EC2
     Environment:
       Connections:
         - Role: CodeCatalystWorkflowDevelopmentRole-PIDDigital
           Name: "314208970587"
       Name: dev
-    Inputs:
-      Sources:
-        - WorkflowSource
-    Compute:
-      Type: Lambda
-    Configuration:
-      ContinueOnError: false
-      AWSRegion: us-east-1
-      LogType: Tail
-      Function: serverlessframework
