@@ -19,7 +19,7 @@ Actions:
         - name: Enter dir and deploy
           uses: serverless/github-action@v3.2
           with:
-            args: -c "cd ./<your-dir> && serverless deploy"
+            args: -c "cd ./aws-node-http-api-project && serverless deploy"
             entrypoint: /bin/sh
     Compute:
       Type: EC2
